@@ -1,7 +1,10 @@
 import { useState } from "react";
+import { TaskContext, useTask } from "../contexts/TaskContext";
 
-export default function AddTask({ onAdd }) {
+export default function AddTask() {
   const [text, setText] = useState("");
+
+  const { onAdd } = useTask(TaskContext);
   return (
     <>
       <input

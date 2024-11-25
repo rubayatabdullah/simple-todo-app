@@ -1,14 +1,16 @@
 import React, { useState } from "react";
+import { TaskContext, useTask } from "../contexts/TaskContext";
 
-export default function Task({ task, onChange, onDelete }) {
+export default function Task({ task }) {
   const [isEditing, setIsEditing] = useState(false);
+  const { onChangeTask, onDelete } = useTask(TaskContext);
 
   const taskContent = isEditing ? (
     <>
       <input
         value={task.title}
         onChange={(event) =>
-          onChange({
+          onChangeTask({
             ...task,
             title: event.target.value,
           })
@@ -29,7 +31,7 @@ export default function Task({ task, onChange, onDelete }) {
         type="checkbox"
         id={task.id}
         checked={task.done}
-        onChange={(e) => onChange({ ...task, done: e.target.checked })}
+        onChange={(e) => onChangeTask({ ...task, done: e.target.checked })}
       />
       {taskContent}
       <button onClick={() => onDelete(task.id)}>Delete</button>

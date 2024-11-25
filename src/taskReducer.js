@@ -4,7 +4,7 @@ export default function taskReducer(tasks, action) {
       return [
         ...tasks,
         {
-          id: action.nextId++,
+          id: action.nextId,
           title: action.text,
           done: false,
         },
@@ -18,7 +18,9 @@ export default function taskReducer(tasks, action) {
       });
 
     case "deleted":
-      return tasks.filter((t) => t.id !== action.taskId);
+      return tasks.filter((t) => {
+        return t.id !== action.taskId;
+      });
 
     default:
       throw new Error("Fuck You!");
